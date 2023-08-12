@@ -4,8 +4,8 @@ from kubernetes.client import models as k8s
 from airflow.operators.bash import BashOperator
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
-with DAG('adf-pipeline-trigger',
-	description='MPH Airflow-ADF Integration demo.',
+with DAG('remote-logging',
+	description='test-remote-logging',
 	start_date=datetime(2021, 1, 1),
 	catchup=False
 	) as dag:
@@ -16,11 +16,10 @@ with DAG('adf-pipeline-trigger',
     	)
 
 	t1 = KubernetesPodOperator(
-		task_id='adf_pipeline',
-		namespace='unicron-airflow',
-		image='unicronacr.azurecr.io/rl/adf-pipeline',
-		image_pull_secrets=[k8s.V1LocalObjectReference('unicronacr-secret')],
-		name="adf_pipeline",
+		task_id='do-something',
+		namespace='airflow',
+		image='busybox',
+		name="do_this",
 		is_delete_operator_pod=True,
 		in_cluster=True,
 		get_logs=True
