@@ -18,7 +18,7 @@ with DAG('remote-logging',
 	t1 = KubernetesPodOperator(
 		task_id='do-something',
 		namespace='airflow',
-		image='quay.io/apache/bash',
+		image='bash',
 		cmds=["bash", "-cx"],
         	arguments=["echo", "10", "echo pwd"],
 		name="do_this",
